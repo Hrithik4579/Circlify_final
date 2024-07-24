@@ -11,14 +11,14 @@ export default function ChatInput({ handleSendMsg }) {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
-  const handleEmojiClick = (event, emojiObject) => {
+  const handleEmojiClick = (e, emojiObject) => {
     let message = msg;
     message += emojiObject.emoji;
     setMsg(message);
   };
 
-  const sendChat = (event) => {
-    event.preventDefault();
+  const sendChat = (e) => {
+    e.preventDefault();
     if (msg.length > 0) {
       handleSendMsg(msg);
       setMsg("");
@@ -33,7 +33,7 @@ export default function ChatInput({ handleSendMsg }) {
           {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />}
         </div>
       </div>
-      <form className="input-container" onSubmit={(event) => sendChat(event)}>
+      <form className="input-container" onSubmit={(e) => sendChat(e)}>
         <input
           type="text"
           placeholder="type your message here"

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import ChatInput from "./Message";
+import Message from "./Message";
 import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
-export default function ChatContainer({ currentChat, socket }) {
+export default function Chat({ curChat, socket }) {
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -16,34 +16,34 @@ export default function ChatContainer({ currentChat, socket }) {
     );
     const response = await axios.post("http://localhost:5000/api/messages/getmsg", {
       from: data._id,
-      to: currentChat._id,
+      to: curChat._id,
     });
     setMessages(response.data);
-  }, [currentChat]);
+  }, [curChat]);
 
   useEffect(() => {
-    const getCurrentChat = async () => {
-      if (currentChat) {
+    const getcurChat = async () => {
+      if (curChat) {
         await JSON.parse(
           localStorage.getItem("circlify")
         )._id;
       }
     };
-    getCurrentChat();
-  }, [currentChat]);
+    getcurChat();
+  }, [curChat]);
 
   const handleSendMsg = async (msg) => {
     const data = await JSON.parse(
       localStorage.getItem("circlify")
     );
     socket.current.emit("send-msg", {
-      to: currentChat._id,
+      to: curChat._id,
       from: data._id,
       msg,
     });
     await axios.post("http://localhost:5000/api/messages/addmsg", {
       from: data._id,
-      to: currentChat._id,
+      to: curChat._id,
       message: msg,
     });
 
@@ -74,12 +74,12 @@ export default function ChatContainer({ currentChat, socket }) {
         <div className="user-details">
           <div className="avatar">
             <img
-              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+              src={`data:image/svg+xml;base64,${curChat.avatarImage}`}
               alt=""
             />
           </div>
           <div className="username">
-            <h3>{currentChat.username}</h3>
+            <h3>{curChat.username}</h3>
           </div>
         </div>
         <Logout />
@@ -101,7 +101,7 @@ export default function ChatContainer({ currentChat, socket }) {
           );
         })}
       </div>
-      <ChatInput handleSendMsg={handleSendMsg} />
+      <Message handleSendMsg={handleSendMsg} />
     </Container>
   );
 }
@@ -187,7 +187,7 @@ const Container = styled.div`
 // import axios from "axios";
 // // import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
 
-// export default function ChatContainer({ currentChat, socket }) {
+// export default function ChatContainer({ curChat, socket }) {
 //   const [messages, setMessages] = useState([]);
 //   const scrollRef = useRef();
 //   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -198,34 +198,34 @@ const Container = styled.div`
 //     );
 //     const response = await axios.post("http://localhost:5000/api/messages/getmsg", {
 //       from: data._id,
-//       to: currentChat._id,
+//       to: curChat._id,
 //     });
 //     setMessages(response.data);
-//   }, [currentChat]);
+//   }, [curChat]);
 
 //   useEffect(() => {
-//     const getCurrentChat = async () => {
-//       if (currentChat) {
+//     const getcurChat = async () => {
+//       if (curChat) {
 //         await JSON.parse(
 //           localStorage.getItem("circlify")
 //         )._id;
 //       }
 //     };
-//     getCurrentChat();
-//   }, [currentChat]);
+//     getcurChat();
+//   }, [curChat]);
 
 //   const handleSendMsg = async (msg) => {
 //     const data = await JSON.parse(
 //       localStorage.getItem("circlify")
 //     );
 //     socket.current.emit("send-msg", {
-//       to: currentChat._id,
+//       to: curChat._id,
 //       from: data._id,
 //       msg,
 //     });
 //     await axios.post("http://localhost:5000/api/messages/addmsg", {
 //       from: data._id,
-//       to: currentChat._id,
+//       to: curChat._id,
 //       message: msg,
 //     });
 
@@ -256,12 +256,12 @@ const Container = styled.div`
 //         <div className="user-details">
 //           <div className="avatar">
 //             <img
-//               src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+//               src={`data:image/svg+xml;base64,${curChat.avatarImage}`}
 //               alt=""
 //             />
 //           </div>
 //           <div className="username">
-//             <h3>{currentChat.username}</h3>
+//             <h3>{curChat.username}</h3>
 //           </div>
 //         </div>
 //         <Logout />

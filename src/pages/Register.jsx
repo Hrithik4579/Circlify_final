@@ -9,12 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import "./register.css";
 export default function Register() {
     const navigate=useNavigate();
-    const [values, setValues] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
+    const [values, setValues] = useState({username: "",email: "", password: "", confirmPassword: "",});
       const settings = {
         position: "top-left",
         autoClose: 4000,

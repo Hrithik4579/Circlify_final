@@ -3,14 +3,14 @@ import styled from "styled-components";
 import Logo from "../assets/logo.jpg";
 
 export default function Contacts({ contacts, changeChat }) {
-  const [currentUserName, setCurrentUserName] = useState(undefined);
+  const [curUserName, setcurUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
   useEffect(async () => {
     const data = await JSON.parse(
       localStorage.getItem("circlify")
     );
-    setCurrentUserName(data.username);
+    setcurUserName(data.username);
     setCurrentUserImage(data.avatarImage);
   }, []);
   const changeCurrentChat = (index, contact) => {
@@ -19,7 +19,7 @@ export default function Contacts({ contacts, changeChat }) {
   };
   return (
     <>
-      {currentUserImage && currentUserImage && (
+      {currentUserImage && (
         <Container>
           <div className="brand">
             <img src={Logo} alt="logo" />
@@ -56,7 +56,7 @@ export default function Contacts({ contacts, changeChat }) {
               />
             </div>
             <div className="username">
-              <h2>{currentUserName}</h2>
+              <h2>{curUserName}</h2>
             </div>
           </div>
         </Container>
@@ -158,14 +158,14 @@ const Container = styled.div`
 // import Logo from "../assets/logo.jpg";
 
 // export default function Contacts({ contacts, changeChat }) {
-//   const [currentUserName, setCurrentUserName] = useState(undefined);
+//   const [curUserName, setcurUserName] = useState(undefined);
 //   const [currentUserImage, setCurrentUserImage] = useState(undefined);
 //   const [currentSelected, setCurrentSelected] = useState(undefined);
 //   useEffect(async () => {
 //     const data = await JSON.parse(
 //       localStorage.getItem("circlify")
 //     );
-//     setCurrentUserName(data.username);
+//     setcurUserName(data.username);
 //     setCurrentUserImage(data.avatarImage);
 //   }, []);
 //   const changeCurrentChat = (index, contact) => {
@@ -211,7 +211,7 @@ const Container = styled.div`
 //               />
 //             </div>
 //             <div className="username">
-//               <h2>{currentUserName}</h2>
+//               <h2>{curUserName}</h2>
 //             </div>
 //           </div>
 //         </Container>

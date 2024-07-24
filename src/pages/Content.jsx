@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import ChatContainer from "../components/Chat";
+import Chat from "../components/Chat";
 import Contacts from "../components/Contacts";
 import Home from "../components/Home";
 
@@ -11,7 +11,7 @@ export default function Content() {
   const navigate = useNavigate();
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
-  const [currentChat, setCurrentChat] = useState(undefined);
+  const [curChat, setcurChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(async () => {
     if (!localStorage.getItem("circlify")) {
@@ -42,7 +42,7 @@ export default function Content() {
     }
   }, [currentUser]);
   const handleChatChange = (chat) => {
-    setCurrentChat(chat);
+    setcurChat(chat);
   };
   return (
     <>
@@ -50,10 +50,10 @@ export default function Content() {
       <Container>
         <div className="container">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
-          {currentChat === undefined ? (
+          {curChat === undefined ? (
             <Home/>
           ) : (
-            <ChatContainer currentChat={currentChat} socket={socket} />
+            <Chat curChat={curChat} socket={socket} />
           )}
         </div>
       </Container>
@@ -105,7 +105,7 @@ const Container = styled.div`
 //   const navigate = useNavigate();
 //   const socket = useRef();
 //   const [contacts, setContacts] = useState([]);
-//   const [currentChat, setCurrentChat] = useState(undefined);
+//   const [curChat, setcurChat] = useState(undefined);
 //   const [currentUser, setCurrentUser] = useState(undefined);
 //   useEffect(async () => {
 //     if (!localStorage.getItem("circlify")) {
@@ -136,17 +136,17 @@ const Container = styled.div`
 //     }
 //   }, [currentUser]);
 //   const handleChatChange = (chat) => {
-//     setCurrentChat(chat);
+//     setcurChat(chat);
 //   };
 //   return (
 //     <>
 //       <Container>
 //         <div className="container">
 //           <Contacts contacts={contacts} changeChat={handleChatChange} />
-//           {currentChat === undefined ? (
+//           {curChat === undefined ? (
 //             <Home />
 //           ) : (
-//             <Chat currentChat={currentChat} socket={socket} />
+//             <Chat curChat={curChat} socket={socket} />
 //           )}
 //         </div>
 //       </Container>

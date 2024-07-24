@@ -6,8 +6,8 @@ import loader from "../assets/loader.gif";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-export default function SetAvatar() {
-  const api = `https://api.multiavatar.com/4645646`;
+export default function Avatar() {
+  // const api = `https://api.multiavatar.com/4645646`;
   const navigate = useNavigate();
   const [avatars, setAvatars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,8 +21,9 @@ export default function SetAvatar() {
   };
 
   useEffect(async () => {
-    if (!localStorage.getItem("circlify"))
+    if (!localStorage.getItem("circlify")){
       navigate("/login");
+    }
   }, []);
 
   const setProfilePicture = async () => {
@@ -55,7 +56,7 @@ export default function SetAvatar() {
     const data = [];
     for (let i = 0; i < 4; i++) {
       const image = await axios.get(
-        `${api}/${Math.round(Math.random() * 1000)}`
+        `https://api.multiavatar.com/4647865/${Math.round(Math.random() * 1000)}`
       );
       const buffer = new Buffer(image.data);
       data.push(buffer.toString("base64"));
@@ -82,9 +83,7 @@ export default function SetAvatar() {
                     selectedAvatar === index ? "selected" : ""
                   }`}
                 >
-                  <img
-                    src={`data:image/svg+xml;base64,${avatar}`}
-                    alt="avatar"
+                  <img src={`data:image/svg+xml;base64,${avatar}`} alt="avatar"
                     key={avatar}
                     onClick={() => setSelectedAvatar(index)}
                   />
